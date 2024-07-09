@@ -1,0 +1,60 @@
+.purple-bg {
+  background-color: purple;
+  padding: 1rem;
+  line-height: 3.2rem;
+}
+
+.aqua-bg {
+  background-color: aqua;
+  padding: 1rem;
+  line-height: 3.2rem;
+}
+
+.green-bg {
+  background-color: green;
+  padding: 1rem;
+  line-height: 3.2rem;
+}
+
+.white-txt {
+  color: white;
+}
+
+.red-txt {
+  color: red;
+}
+
+.blue-txt {
+  color: blue;
+}
+
+.font-1 {
+  font-size: 15px;
+}
+
+.font-2 {
+  font-size: 30px;
+}
+
+.font-3 {
+  font-size: 45px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+  text-decoration: none;
+}
+
+body {
+  position: relative;
+}
+
+.height {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+} /*# sourceMappingURL=style.css.map */

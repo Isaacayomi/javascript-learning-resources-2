@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice Project</title>
+  </head>
+  <body>
+    <div style="height: 100vh">
+      <h1>This is the top of the page</h1>
+      <form>
+        <button class="sortBtn">Show next section</button>
+      </form>
+    </div>
+
+    <div style="height: 100vh" class="section1">
+      <p>The next section</p>
+    </div>
+
+    <script>
+      // const sortBtn = document.querySelector('.sortBtn');
+      // const num = [-100, 200, 500, -900, -1000, 1000];
+      // console.log(num)
+
+      // //a state variable
+      // let sorted = false;
+      // sortBtn.addEventListener('click', function(e){
+      // e.preventDefault();
+      // const sortedNum = num.sort(function(a, b){
+      // if (sorted == false){
+      //     return a - b
+      // } else {
+      //     return sorted == !sorted;
+      // }
+
+      // });
+      // console.log(sortedNum)})
+
+      //Practicing the setTimeout function
+      // const timerBtn = document.querySelector('.sortBtn');
+
+      // const timer = (e) => {
+      //     e.preventDefault();
+      //     setTimeout(()=>alert('Hello Prime'), 2000)
+      // }
+      // timerBtn.addEventListener('click', timer);
+
+      // PRACTICING SMOOTH SCROLLING
+      const btn = document.querySelector(".sortBtn");
+      const section = document.querySelector(".section1");
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        // alert('Hii')
+        section.scrollIntoView({ behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>

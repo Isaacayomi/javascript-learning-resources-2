@@ -1,0 +1,51 @@
+$backgroundColors: (
+  color1: purple,
+  color2: aqua,
+  color3: green,
+);
+
+$fontColors: (
+  color1: white,
+  color2: red,
+  color3: blue,
+);
+
+@each $key, $color in $backgroundColors {
+  .#{$color}-bg {
+    background-color: $color;
+    padding: 1rem;
+    line-height: 3.2rem;
+  }
+}
+
+@each $key, $color in $fontColors {
+  .#{$color}-txt {
+    color: $color;
+  }
+}
+
+@for $i from 1 through 3 {
+  .font-#{$i} {
+    font-size: 15px * $i;
+    // line-height: 0.85rem * $i;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+  text-decoration: none;
+}
+
+body {
+  position: relative;
+}
+
+.height {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}

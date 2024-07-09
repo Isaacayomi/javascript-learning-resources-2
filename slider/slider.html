@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider Component</title>
+
+    <style>
+      .slider {
+        max-width: 500px;
+        height: 200px;
+        border: 1px solid black;
+        position: relative;
+      }
+      .slide {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        transition: transform 1s;
+      }
+
+      .slider__btn {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+      }
+
+      .slider__btn--right {
+        right: 2%;
+      }
+
+      .slider__btn--left {
+        left: 2%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider">
+      <img src="./Screenshot (1).png" class="slide" alt="slide-1" />
+      <img src="./Screenshot (2).png" class="slide" alt="slide-2" />
+      <img src="./Screenshot (1).png" class="slide" alt="slide-1" />
+      <img src="./Screenshot (2).png" class="slide" alt="slide-2" />
+      <button class="slider__btn slider__btn--left">&larr;</button>
+      <button class="slider__btn slider__btn--right">&rarr;</button>
+    </div>
+
+    <script src="slider.js"></script>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Delegation (Page Navigation)</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        list-style-type: none;
+        margin-inline: 1rem;
+      }
+
+      .nav__links {
+        transition: all 0.01s;
+        padding-block: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: grey;
+        margin-inline: 0;
+      }
+
+      a {
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        opacity: 1;
+      }
+
+      section,
+      div {
+        margin-block: 2rem;
+        height: 50vh;
+        border: 1px solid purple;
+        margin-block: 1rem;
+        padding-top: 1.4rem;
+        transition:
+          opacity 1s,
+          transform 1s;
+      }
+
+      .section__hidden {
+        opacity: 0;
+        transform: translateY(8rem);
+      }
+
+      .section--1 {
+        height: 100vh;
+        margin-top: 1rem;
+      }
+
+      div {
+        height: 100vh;
+      }
+
+      .sticky {
+        position: sticky;
+        background-color: rgb(219, 217, 217);
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="nav__links">
+      <li>
+        <a href="#section_1" class="nav__link">Home</a>
+      </li>
+
+      <li>
+        <a href="#section_2" class="nav__link">About</a>
+      </li>
+
+      <li>
+        <a href="#section_3" class="nav__link">Features</a>
+      </li>
+    </ul>
+
+    <div id="section_1">
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque, iure
+        quae sapiente ipsum debitis minus hic at quia? Et a alias est nemo porro
+        ratione minus, tempora deleniti cumque quos. Magnam, nostrum. Quidem
+        animi voluptatibus adipisci doloremque vel, harum, hic praesentium
+        provident odio odit minima itaque! Cumque aperiam molestiae dolores
+        minima corporis quaerat ipsum maiores. Ab voluptatem exercitationem
+        aliquam accusamus!
+      </p>
+    </div>
+
+    <section id="section_2" class="section--1">
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. A debitis at
+        quas voluptates vitae accusamus, dolorem nostrum adipisci. Doloribus
+        corporis suscipit fuga. Blanditiis officia facere odio cum explicabo,
+        necessitatibus molestiae? Nihil, quod explicabo ullam molestiae
+        blanditiis hic, iusto ut distinctio culpa impedit perspiciatis cumque
+        iure, non nobis illum. Magnam quasi eaque fugiat vero illum, quia
+        corrupti molestiae sed enim excepturi.
+      </p>
+    </section>
+
+    <section id="section_3">
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. A debitis at
+        quas voluptates vitae accusamus, dolorem nostrum adipisci. Doloribus
+        corporis suscipit fuga. Blanditiis officia facere odio cum explicabo,
+        necessitatibus molestiae? Nihil, quod explicabo ullam molestiae
+        blanditiis hic, iusto ut distinctio culpa impedit perspiciatis cumque
+        iure, non nobis illum. Magnam quasi eaque fugiat vero illum, quia
+        corrupti molestiae sed enim excepturi.
+      </p>
+    </section>
+
+    <script src="page.js"></script>
+  </body>
+</html>
