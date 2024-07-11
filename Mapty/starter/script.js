@@ -25,20 +25,40 @@ if (navigator.geolocation)
       const { latitude } = position.coords;
       console.log(latitude, longitude);
       // Getting your current location on google map
-      console.log(`https://www.google.pt/maps/@${latitude}, ${longitude}`);
+      // console.log(`https://www.google.pt/maps/@${latitude}, ${longitude}`);
 
+      const coords = [latitude, longitude];
       // we must have a div element in our HTML with the id name of ('map') so that our map can display in that element
-      const map = L.map('map').setView([51.505, -0.09], 13);
+      const map = L.map('map').setView(coords, 13);
+      // console.log(map)
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      L.marker([51.5, -0.09])
-        .addTo(map)
-        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-        .openPopup();
+      //Adding an event listener on the map, the mapEvent displays a marker on wherever we click
+      map.on('click', function (mapEvent) {
+        console.log(mapEvent);
+        const latitude = mapEvent.latlng.lat;
+        const longitude = mapEvent.latlng.lng;
+        // OR
+        // const { lat, lng } = mapEvent.latlng;
+
+        L.marker([latitude, longitude])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 150,
+              autoClose: false,
+              closeOnClick: false,
+              className: 'running-popup',
+            })
+          )
+          .setPopupContent('Workout')
+          .openPopup();
+      });
     },
 
     // Error callback
