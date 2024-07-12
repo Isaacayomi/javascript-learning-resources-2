@@ -71,17 +71,18 @@ form.addEventListener('submit', function (e) {
     .addTo(map)
     .bindPopup(
       L.popup({
-        maxWidth: 250,
-        minWidth: 150,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'running-popup',
+        maxWidth: 250, // Sets maxwidth of the marker
+        minWidth: 150, // sets minwidth of the marker
+        autoClose: false, // prevents the marker from closing itself
+        closeOnClick: false, // prevents the marker from closing when another position is being clicked
+        className: 'running-popup', // adds a custom class styling to the marker
       })
     )
-    .setPopupContent('Workout')
+    .setPopupContent('Workout') // sets the content of the marker
     .openPopup();
 });
 
+// Toggles the form 'select' type
 inputType.addEventListener('change', function () {
   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
