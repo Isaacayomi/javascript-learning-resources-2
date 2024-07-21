@@ -23,6 +23,7 @@ class Workout {
 }
 
 class Running extends Workout {
+  type = 'running';
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -37,9 +38,11 @@ class Running extends Workout {
 }
 
 class Cycling extends Workout {
+  type = 'cycling';
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
+    // this.type = 'cycling'
     this.calcSpeed;
   }
 
@@ -171,7 +174,7 @@ class App {
     this.#workouts.push(workout);
 
     // Render workout on map as marker
-    this.renderWorkoutMarker(workout)
+    this.renderWorkoutMarker(workout);
     // OR
     // const { lat, lng } = mapEvent.latlng;
 
@@ -196,7 +199,7 @@ class App {
           minWidth: 150, // sets minwidth of the marker
           autoClose: false, // prevents the marker from closing itself
           closeOnClick: false, // prevents the marker from closing when another position is being clicked
-          className: `${type}-popup`, // adds a custom class styling to the marker
+          className: `${workout.type}-popup`, // adds a custom class styling to the marker
         })
       )
       .setPopupContent(workout.distance) // sets the content of the marker
