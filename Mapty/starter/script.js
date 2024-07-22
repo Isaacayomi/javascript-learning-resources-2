@@ -221,7 +221,7 @@ class App {
           className: `${workout.type}-popup`, // adds a custom class styling to the marker
         })
       )
-      .setPopupContent(workout.distance) // sets the content of the marker
+      .setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🦶🏼'} ${workout.description}`) // sets the content of the marker
       .openPopup();
   }
 
