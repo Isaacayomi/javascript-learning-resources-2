@@ -73,6 +73,7 @@ console.log(cycling1);
 // APPLICATION ARCHITECTURE
 class App {
   #map;
+  #mapZoomLevel = 13;
   #mapEvent;
   #workouts = [];
 
@@ -82,6 +83,9 @@ class App {
 
     // Toggles the form 'select' type
     inputType.addEventListener('change', this._toggleElevationField);
+
+    // Event listener to move to marker on click
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -221,7 +225,9 @@ class App {
           className: `${workout.type}-popup`, // adds a custom class styling to the marker
         })
       )
-      .setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🦶🏼'} ${workout.description}`) // sets the content of the marker
+      .setPopupContent(
+        `${workout.type === 'running' ? '🏃‍♂️' : '🦶🏼'} ${workout.description}`
+      ) // sets the content of the marker
       .openPopup();
   }
 
@@ -274,6 +280,27 @@ class App {
 
       form.insertAdjacentElement('afterend', html);
     }
+  }
+
+  // Move to Marker on click
+
+  __moveToPopup(e) {
+    const workoutEl = e.target.closest('.workout');
+    console.log(workoutEl);
+
+    if (!workoutEl) return;
+
+    const workout = this.#workouts.find(
+      work => work.id === workoutEl.dataset.id.bind(this)
+    );
+
+    // leaflet has this setView method on it's documentation which enables users to move marker on click
+    this.#map.setView(workout.coords, this.#mapZoomLevel, {
+      animate: true,
+      pan: {
+        duration: 1,
+      },
+    });
   }
 }
 
