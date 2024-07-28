@@ -15,6 +15,8 @@ const getCountryData = function (country) {
     const [data] = JSON.parse(this.responseText); // converts the stringed object back to string
     console.log(data);
 
+    // console.log(data.languages)
+
     const html = `
     <article class="country">
         <img class="country__img" src="${data.flags.png}" />
@@ -26,16 +28,16 @@ const getCountryData = function (country) {
             ).toFixed(1)} people</p> 
             <p class="country__row"><span>🗣️</span>${data.languages.por}</p>
             <p class="country__row"><span>💰</span>${
-              data.currencies[0]
+              data.currencies.EUR.name
             }</p>
         </div>
     </article>  
   `;
-
     countriesContainer.insertAdjacentHTML('beforeend', html);
     countriesContainer.style.opacity = 1;
   });
 };
 
-getCountryData('portugal')
-getCountryData('nigeria')
+getCountryData('portugal');
+// getCountryData('nigeria');
+
