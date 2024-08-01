@@ -4,6 +4,7 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
+// Performing AJAX Calls using XMLHttpRequest method
 const renderCountry = function (data, className = '') {
   const countryFlag = data.flags.png;
   const countryName = data.name.common;
@@ -29,6 +30,7 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
+/*
 const getCountryAndNeighbour = function (country) {
   // AJAX call country 1
   const request = new XMLHttpRequest();
@@ -62,4 +64,20 @@ const getCountryAndNeighbour = function (country) {
 };
 
 getCountryAndNeighbour('usa');
+*/
 
+// Promises and The Fetch API
+const request = fetch('https://restcountries.com/v3.1/name/portugal');
+console.log(request);
+
+const getCountryData = function (country) {
+  const request = fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(function (response) {
+      console.log(response);
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+};
+getCountryData('portugal');
