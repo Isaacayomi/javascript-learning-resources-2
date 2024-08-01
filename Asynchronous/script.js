@@ -4,7 +4,7 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
-const renderCountry = function (data) {
+const renderCountry = function (data, className = '') {
   const countryFlag = data.flags.png;
   const countryName = data.name.common;
   const countryRegion = data.region;
@@ -14,7 +14,7 @@ const renderCountry = function (data) {
   const countryCurrency = data.currencies[Object.keys(data.currencies)].name;
 
   const html = `
-        <article class="country">
+        <article class="country ${className}">
             <img class="country__img" src="${countryFlag}" />
             <div class="country__data">
                 <h3 class="country__name">${countryName}</h3>
@@ -47,12 +47,19 @@ const getCountryAndNeighbour = function (country) {
 
     if (!neighbour) return;
 
-
-// AJAX call country 2
+    // AJAX call country 2
     const request2 = new XMLHttpRequest();
-  request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
-  request2.send();
-  });
-}; 
+    request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`); // Search country based on the country code
+    request2.send();
 
-getCountryAndNeighbour('portugal');
+    request2.addEventListener('load', function () {
+      const [data2] = JSON.parse(this.responseText);
+      console.log(data2);
+
+      renderCountry(data2, 'neighbour');
+    });
+  });
+};
+
+getCountryAndNeighbour('usa');
+
