@@ -84,7 +84,13 @@ console.log(request);
 
 const getCountryData = function (country) {
   const request = fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
-    .then(data => renderCountry(data[0]));
+    .then(response => {
+      response.json();
+      console.log(response);
+    })
+    .then(data => {
+      renderCountry(data[0]);
+      console.log(data);
+    });
 };
 getCountryData('nigeria');
