@@ -90,7 +90,13 @@ const renderError = function (msg) {
 const getCountryData = function (country) {
   const request = fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(
-      response => response.json()
+      response => {
+        console.log(response);
+        // Throwing Errors manually
+        if (!response.ok)
+          throw new Error(`Country not found (${response.status})`);
+        return response.json();
+      }
 
       // handling rejected promises (when there is no longer internet connection)
       // Handling/catching errors
@@ -107,6 +113,7 @@ const getCountryData = function (country) {
     })
     .then(
       response => response.json()
+
       // err => alert(err)
     )
     .then(data => renderCountry(data[0], 'neighbour'))
