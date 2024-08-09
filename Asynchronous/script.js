@@ -92,7 +92,7 @@ const getCountryData = function (country) {
     .then(
       response => {
         console.log(response);
-        // Throwing Errors manually
+        // Throwing Errors manually 
         if (!response.ok)
           throw new Error(`Country not found (${response.status})`);
         return response.json();
