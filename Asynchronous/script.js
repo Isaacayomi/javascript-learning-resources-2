@@ -82,6 +82,23 @@ console.log(request);
 //     });
 // };
 
+const whereAmI = function (lat, lng) {
+
+  
+  fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=55532362827180944412x107392`
+  )
+    .then(resp => {
+      if (!resp.ok)
+        throw new Error(
+          `Problem with geocoding ${err.message}, ${resp.status}`
+        );
+      return resp.json();
+    })
+    .then(data => console.log(`You are in ${data.city}, ${data.country}`))
+    .catch(err => alert(`Something went wrong: ${err.message}, ${resp.status}`));
+};
+
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
   // countriesContainer.style.opacity = 1;
@@ -103,6 +120,7 @@ const getCountryData = function (country) {
       // err => alert(err)
     )
     .then(data => {
+      console.log(data)
       renderCountry(data[0]);
       const neighbour = data[0].borders[0];
 
@@ -127,5 +145,5 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('england');
+  getCountryData('france');
 });
