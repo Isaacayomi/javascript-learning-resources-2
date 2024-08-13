@@ -27,7 +27,7 @@ const renderCountry = function (data, className = '') {
         </article>
 `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 
 /*
@@ -83,8 +83,6 @@ console.log(request);
 // };
 
 const whereAmI = function (lat, lng) {
-
-  
   fetch(
     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=55532362827180944412x107392`
   )
@@ -95,8 +93,19 @@ const whereAmI = function (lat, lng) {
         );
       return resp.json();
     })
-    .then(data => console.log(`You are in ${data.city}, ${data.country}`))
-    .catch(err => alert(`Something went wrong: ${err.message}, ${resp.status}`));
+    .then(data => console.log(`You are in ${data.city}, ${data.country}`));
+
+  return fetch(`https://restcountries.com/v3.1/name/${data.country}`)
+    .then(resp => {
+      if (!resp.ok) {
+        throw new Error(`Country not found ${resp.status}`);
+      }
+      return resp.json();
+    })
+    .then(data => renderCountry(data[0]))
+    .catch(err =>
+      alert(`Something went wrong: ${err.message}, ${resp.status}`)
+    );
 };
 
 const renderError = function (msg) {
@@ -109,7 +118,7 @@ const getCountryData = function (country) {
     .then(
       response => {
         console.log(response);
-        // Throwing Errors manually 
+        // Throwing Errors manually
         if (!response.ok)
           throw new Error(`Country not found (${response.status})`);
         return response.json();
@@ -120,7 +129,7 @@ const getCountryData = function (country) {
       // err => alert(err)
     )
     .then(data => {
-      console.log(data)
+      console.log(data);
       renderCountry(data[0]);
       const neighbour = data[0].borders[0];
 
@@ -147,3 +156,4 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
   getCountryData('france');
 });
+
