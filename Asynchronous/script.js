@@ -87,6 +87,7 @@ const whereAmI = function (lat, lng) {
     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=55532362827180944412x107392`
   )
     .then(resp => {
+      console.log(resp);
       if (!resp.ok)
         throw new Error(
           `Problem with geocoding ${err.message}, ${resp.status}`
@@ -107,7 +108,6 @@ const whereAmI = function (lat, lng) {
       alert(`Something went wrong: ${err.message}, ${resp.status}`)
     );
 };
-
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
   // countriesContainer.style.opacity = 1;
@@ -157,3 +157,7 @@ btn.addEventListener('click', function () {
   getCountryData('france');
 });
 
+// Building Promise
+const lotteryPromise = new Promise(function (resolve, reject) {
+
+});
