@@ -81,7 +81,7 @@ console.log(request);
 //       renderCountry(data[0]);
 //     });
 // };
-
+/*
 const whereAmI = function (lat, lng) {
   fetch(
     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=55532362827180944412x107392`
@@ -156,8 +156,46 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
   getCountryData('france');
 });
+*/
 
 // Building Promise
+// a simple lottery promise
 const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lottery draw is happening ');
 
+  setTimeout(() => {
+    if (Math.random() >= 0.5) {
+      resolve('You WIN');
+    } else {
+      reject(new Error('You LOST your money'));
+    }
+  }, 2000);
 });
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+
+// Promisifying setTiemout
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+wait(2)
+  .then(() => {
+    console.log('I waited for two seconds');
+    return wait(1);
+  })
+  .then(() => console.log('I waited for 1 second'));
+
+// Promisifying the geolocation API
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(
+      position => resolve(position),
+      err => reject(err)
+    );
+  });
+};
+
+getPosition().then(pos => console.log(pos));
