@@ -160,6 +160,7 @@ btn.addEventListener('click', function () {
 
 // Building Promise
 // a simple lottery promise
+/*
 const lotteryPromise = new Promise(function (resolve, reject) {
   console.log('Lottery draw is happening ');
 
@@ -240,3 +241,18 @@ createImage('img/img-1.jpg')
     currentImg.style.display = 'none';
   })
   .catch(err => console.error(err));
+  */
+
+// Consuming promises with async/await
+
+const whereAmI = async function (country) {
+  const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+  const data = await res.json();
+  console.log(data);
+  renderCountry(data[0]);
+};
+
+btn.addEventListener('click', function () {
+  whereAmI('nigeria');
+});
+// console.log('FIRST');
