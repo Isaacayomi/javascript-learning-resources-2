@@ -244,15 +244,31 @@ createImage('img/img-1.jpg')
   */
 
 // Consuming promises with async/await
+// Geolocation API
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
 
-const whereAmI = async function (country) {
-  const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+const whereAmI = async function () {
+  // Geolocation
+  const pos = await getPosition();
+  console.log(pos);
+  const { latitude: lat, longitude: lng } = pos.coords;
+
+  // Reverse Geocoding
+  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+  console.log(resGeo)
+  const dataGeo = await resGeo.json();
+
+  // Country Data
+  const res = await fetch(`https://restcountries.com/v3.1/name/${dataGeo.country}`);
+  // console.log(res);
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   renderCountry(data[0]);
 };
 
-btn.addEventListener('click', function () {
-  whereAmI('nigeria');
-});
+btn.addEventListener('click', whereAmI);
 // console.log('FIRST');
