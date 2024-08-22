@@ -282,11 +282,11 @@ const whereAmI = async function () {
 btn.addEventListener('click', whereAmI);
 // console.log('FIRST');
 
-//Handling errors using the try....catch method
+//Handling errors using the try....catch method (Simple usecase)
 // try {
 //   let y = 1;
 //   const x = 2;
 //   x = 3;
 // } catch (err) {
 //   alert(err.message);
-// }
+// }  
