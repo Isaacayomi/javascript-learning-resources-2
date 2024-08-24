@@ -16,3 +16,7 @@ console.log('Importing module');
 import * as ShoppingCart from './shoppingCart.js';
 ShoppingCart.addToCart('bread', 5);
 ShoppingCart.nameNAge('Prime', 50);
+
+// import default export
+import add from './shoppingCart.js'
+add('Pizza', 2)
