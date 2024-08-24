@@ -1,3 +1,4 @@
+/*
 // Importing module
 // import {
 //   addToCart,
@@ -20,3 +21,29 @@ ShoppingCart.nameNAge('Prime', 50);
 // import default export
 import add from './shoppingCart.js'
 add('Pizza', 2)
+
+*/
+
+const ShoppingCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(cart);
+    console.log(`${quantity} ${product} added to cart`);
+  };
+
+  const orderStock = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(cart);
+    console.log(`${quantity} ${product} ordered from supplier`);
+  };
+
+  return { addToCart, orderStock, cart, totalPrice, totalQuantity };
+})();
+ShoppingCart2.addToCart('biscuit', 4);
+ShoppingCart2.addToCart('pizza', 2);
+ShoppingCart2.orderStock('pizza', 2);

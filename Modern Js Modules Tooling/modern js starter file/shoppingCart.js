@@ -1,4 +1,6 @@
+/*
 // Exporting module
+// Using Named Export
 console.log('Exporting module');
 
 // Name Exports
@@ -26,4 +28,4 @@ export default function (product, quantity) {
     console.log(cart);
     console.log(`${quantity} ${product} added to cart`);
   };
-
+  */
