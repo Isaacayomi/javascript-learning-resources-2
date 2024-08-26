@@ -601,9 +601,22 @@ const timeout = function(s) {
 };
 // https://forkify-api.herokuapp.com/v2
 ///////////////////////////////////////
+// Creating a loading spinner
+const renderSpinner = function(parentEl) {
+    const markup = // the svg used here has been animated in the css file, causing the svg file to rotate. components.SCSS: Line 170 - 190
+    `
+    <div class="spinner">
+            <svg>
+              <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use> 
+            </svg>
+    </div>
+  `;
+    parentEl.insertAdjacentHTML("afterbegin", markup);
+};
 const showRecipe = async function() {
     try {
         // 1) Loading Recipe
+        renderSpinner(recipeContainer);
         const res = await fetch("https://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e89af");
         const data = await res.json();
         // Handling error
