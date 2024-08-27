@@ -34,6 +34,7 @@ const renderSpinner = function (parentEl) {
 const showRecipe = async function () {
   try {
     // 1) Loading Recipe
+    // Application of the loading spinner
     renderSpinner(recipeContainer);
     const res = await fetch(
       'https://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e89af'
