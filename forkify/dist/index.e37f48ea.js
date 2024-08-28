@@ -611,14 +611,17 @@ const renderSpinner = function(parentEl) {
             </svg>
     </div>
   `;
+    parentEl.innerHTML = " ";
     parentEl.insertAdjacentHTML("afterbegin", markup);
 };
 const showRecipe = async function() {
     try {
+        const id = window.location.hash.slice(1); // window.location rep the entire url on the browser
+        console.log(id);
         // 1) Loading Recipe
         // Application of the loading spinner
         renderSpinner(recipeContainer);
-        const res = await fetch("https://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e89af");
+        const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
         const data = await res.json();
         // Handling error
         if (!res.ok) // data.message is coming from the res.json() data
@@ -740,7 +743,14 @@ const showRecipe = async function() {
         alert(err);
     }
 };
-showRecipe();
+// showRecipe();
+[
+    "hashchange",
+    "load"
+].forEach((ev)=>window.addEventListener(ev, showRecipe)) // this method above is also the same with using the below  method
+ // window.addEventListener('hashchange', showRecipe);
+ // window.addEventListener('load', showRecipe);
+;
 
 },{"url:../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
 module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
