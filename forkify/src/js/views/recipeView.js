@@ -1,58 +1,13 @@
-import * as model from './model.js';
-import recipeView from './views/recipeView.js';
+class RecipeView {
+  #parentElement = document.querySelector('.recipe');
+  #data;
 
-// importing icons
-// import icons from '../img/icons.svg' works this way in parcel 1
-// importing icons in parcel 2
-import icons from 'url:../img/icons.svg';
+  render(data) {
+    this.#data = data;
+  }
 
-// Parent container for the recipe section
-const recipeContainer = document.querySelector('.recipe');
-
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
-};
-
-// https://forkify-api.herokuapp.com/v2
-
-///////////////////////////////////////
-// Creating a loading spinner
-const renderSpinner = function (parentEl) {
-  const markup =
-    // the svg used here has been animated in the css file, causing the svg file to rotate. components.SCSS: Line 170 - 190
-    `
-    <div class="spinner">
-            <svg>
-              <use href="${icons}#icon-loader"></use> 
-            </svg>
-    </div>
-  `;
-  parentEl.innerHTML = ' ';
-  parentEl.insertAdjacentHTML('afterbegin', markup);
-};
-
-const showRecipe = async function () {
-  try {
-    const id = window.location.hash.slice(1); // window.location rep the entire url on the browser
-    console.log(id);
-
-    if (!id) return;
-
-    // 1) Loading Recipe
-    // Application of the loading spinner
-    renderSpinner(recipeContainer);
-
-    await model.loadRecipe(id);
-    model.state.recipe;
-
-    // 2) Rendering recipe
-    recipeView.render(model.state.recipe);
-
-    const markup = `        
+  #generateMarkUP() {
+    return `        
     <figure class="recipe__fig">
     <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
     <h1 class="recipe__title">
@@ -154,13 +109,7 @@ const showRecipe = async function () {
     // Emptying the recipe container
     recipeContainer.innerHTML = '';
     recipeContainer.insertAdjacentHTML('afterbegin', markup);
-  } catch (err) {
-    alert(err);
   }
-};
-// showRecipe();
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
-// this method above is also the same with using the below  method
+}
 
-// window.addEventListener('hashchange', showRecipe);
-// window.addEventListener('load', showRecipe);
+export default new RecipeView();
