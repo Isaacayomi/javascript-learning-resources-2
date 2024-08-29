@@ -1,5 +1,6 @@
-import {API_URL} from './config.js'
+import { API_URL } from './config.js';
 import { getJSON } from './helpers.js';
+import recipeView from './views/recipeView.js';
 
 export const state = {
   recipe: {},
@@ -7,13 +8,9 @@ export const state = {
 
 export const loadRecipe = async function (id) {
   try {
+    const data = await getJSON(`${API_URL}/${id}`);
 
-const data = await getJSON(`${API_URL}/${id}`)
-
-    const res = await fetch(
-      `${API_URL}/${id}`
-    );
-  
+    const res = await fetch(`${API_URL}/${id}`);
 
     // Reformatting the data property names
     // let recipe = data.data.recipe
@@ -31,6 +28,7 @@ const data = await getJSON(`${API_URL}/${id}`)
 
     console.log(state.recipe);
   } catch (err) {
-    alert(err);
+    console.error(err);
+    throw err;
   }
 };

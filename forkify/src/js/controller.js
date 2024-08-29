@@ -42,7 +42,6 @@ const controlRecipe = async function () {
     console.log(id);
 
     if (!id) return;
-    
 
     // 1) Loading Recipe
     // Application of the loading spinner
@@ -190,14 +189,21 @@ const controlRecipe = async function () {
     recipeContainer.innerHTML = '';
     recipeContainer.insertAdjacentHTML('afterbegin', markup);
     */
+
+    // error handling
   } catch (err) {
-    alert(err);
+    console.log(err)
+    recipeView.renderError(`We could not find that recipe. Please try another one!`);
   }
 };
+
+const init = function () {
+  recipeView.addHandlerRender(controlRecipe);
+};
 // controlRecipe();
-['hashchange', 'load'].forEach(ev =>
-  window.addEventListener(ev, controlRecipe)
-);
+// ['hashchange', 'load'].forEach(ev =>
+//   window.addEventListener(ev, controlRecipe)
+// );
 // this method above is also the same with using the below  method
 
 // window.addEventListener('hashchange', controlRecipe);
