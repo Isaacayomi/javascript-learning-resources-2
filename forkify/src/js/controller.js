@@ -21,8 +21,8 @@ const timeout = function (s) {
 
 ///////////////////////////////////////
 // Creating a loading spinner
-const renderSpinner = function (parentEl) {
-  const markup =
+/*const renderSpinner = function (parentEl) {
+  onst markup =
     // the svg used here has been animated in the css file, causing the svg file to rotate. components.SCSS: Line 170 - 190
     `
     <div class="spinner">
@@ -34,25 +34,60 @@ const renderSpinner = function (parentEl) {
   parentEl.innerHTML = ' ';
   parentEl.insertAdjacentHTML('afterbegin', markup);
 };
+*/
 
-const showRecipe = async function () {
+const controlRecipe = async function () {
   try {
     const id = window.location.hash.slice(1); // window.location rep the entire url on the browser
     console.log(id);
 
     if (!id) return;
+    
 
     // 1) Loading Recipe
     // Application of the loading spinner
-    renderSpinner(recipeContainer);
+    recipeView.renderSpinner();
 
-    await model.loadRecipe(id);
-    model.state.recipe;
+    await model.loadRecipe(id); //mvc refactoring
+    const { recipe } = model.state;
+    /*
+    const res = await fetch(
+      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
+    );
+    const data = await res.json();
+
+    // Handling error
+    if (!res.ok) {
+      // data.message is coming from the res.json() data
+      throw new Error(`${data.message} (${res.status})`);
+    }
+
+    console.log(res);
+    console.log(data);
+
+    // Reformatting the data property names
+    // let recipe = data.data.recipe
+    let { recipe } = data.data;
+    recipe = {
+      id: recipe.id,
+      title: recipe.title,
+      publisher: recipe.publisher,
+      sourceUrl: recipe.source_url,
+      image: recipe.image_url,
+      servings: recipe.servings,
+      cookingTime: recipe.cooking_time,
+      ingredients: recipe.ingredients,
+    };
+
+    console.log(recipe);
+    */
 
     // 2) Rendering recipe
     recipeView.render(model.state.recipe);
 
-    const markup = `        
+    /*
+    const markup = `
+            
     <figure class="recipe__fig">
     <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
     <h1 class="recipe__title">
@@ -154,13 +189,16 @@ const showRecipe = async function () {
     // Emptying the recipe container
     recipeContainer.innerHTML = '';
     recipeContainer.insertAdjacentHTML('afterbegin', markup);
+    */
   } catch (err) {
     alert(err);
   }
 };
-// showRecipe();
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
+// controlRecipe();
+['hashchange', 'load'].forEach(ev =>
+  window.addEventListener(ev, controlRecipe)
+);
 // this method above is also the same with using the below  method
 
-// window.addEventListener('hashchange', showRecipe);
-// window.addEventListener('load', showRecipe);
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load', controlRecipe);

@@ -1,17 +1,44 @@
+import icons from 'url:../../img/icons.svg';
+
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
 
   render(data) {
     this.#data = data;
+    const markup = this.#generateMarkup();
+    // Emptying the recipe container
+    this.#clear;
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  #generateMarkUP() {
-    return `        
+  #clear() {
+    this.#parentElement.innerHTML = ' ';
+  }
+
+  renderSpinner = function () {
+    const markup =
+      // the svg used here has been animated in the css file, causing the svg file to rotate. components.SCSS: Line 170 - 190
+      `
+      <div class="spinner">
+              <svg>
+                <use href="${icons}#icon-loader"></use> 
+              </svg>
+      </div>
+    `;
+    this.#parentElement.innerHTML = ' ';
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  };
+
+  #generateMarkup() {
+    return `
+            
     <figure class="recipe__fig">
-    <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
+    <img src="${this.#data.image}" alt="${
+      this.#data.title
+    }" class="recipe__img" />
     <h1 class="recipe__title">
-      <span>${recipe.title}</span>
+      <span>${this.#data.title}</span>
     </h1>
   </figure>
 
@@ -21,7 +48,7 @@ class RecipeView {
         <use href="${icons}#icon-clock"></use>
       </svg>
       <span class="recipe__info-data recipe__info-data--minutes">${
-        recipe.cookingTime
+        this.#data.cookingTime
       }</span>
       <span class="recipe__info-text">minutes</span>
     </div>
@@ -30,7 +57,7 @@ class RecipeView {
         <use href="${icons}#icon-users"></use>
       </svg>
       <span class="recipe__info-data recipe__info-data--people">${
-        recipe.servings
+        this.#data.servings
       }</span>
       <span class="recipe__info-text">servings</span>
 
@@ -65,7 +92,7 @@ class RecipeView {
     <ul class="recipe__ingredient-list">
 
     
-    ${recipe.ingredients // looping over the ingredients array to create new ingredients html element
+    ${this.#data.ingredients // looping over the ingredients array to create new ingredients html element
       .map(ing => {
         return `
       <li class="recipe__ingredient">
@@ -90,13 +117,13 @@ class RecipeView {
     <p class="recipe__directions-text">
       This recipe was carefully designed and tested by
       <span class="recipe__publisher">${
-        recipe.publisher
+        this.#data.publisher
       }</span>. Please check out
       directions at their website.
     </p>
     <a
       class="btn--small recipe__btn"
-      href="${recipe.sourceUrl}"
+      href="${this.#data.sourceUrl}"
       target="_blank"
     >
       <span>Directions</span>
@@ -106,9 +133,6 @@ class RecipeView {
     </a>
   </div>
     `;
-    // Emptying the recipe container
-    recipeContainer.innerHTML = '';
-    recipeContainer.insertAdjacentHTML('afterbegin', markup);
   }
 }
 
