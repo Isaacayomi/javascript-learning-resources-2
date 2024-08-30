@@ -1,5 +1,6 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
 
 // importing icons
 // import icons from '../img/icons.svg' works this way in parcel 1
@@ -192,14 +193,30 @@ const controlRecipe = async function () {
 
     // error handling
   } catch (err) {
-    console.log(err)
-    recipeView.renderError(`We could not find that recipe. Please try another one!`);
+    console.log(err);
+    recipeView.renderError(
+      `We could not find that recipe. Please try another one!`
+    );
+  }
+};
+
+// controll search result
+const controlSearchResults = async function () {
+  try {
+    const query = searchView.getQuery();
+    if (!query) return;
+    await model.loadSearchResult(query);
+  } catch (err) {
+    console.log(err);
   }
 };
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipe);
+  searchView.addHandlerSearch(controlSearchResults);
 };
+
+init();
 // controlRecipe();
 // ['hashchange', 'load'].forEach(ev =>
 //   window.addEventListener(ev, controlRecipe)
