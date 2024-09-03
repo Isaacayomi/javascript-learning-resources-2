@@ -908,6 +908,7 @@ const loadSearchResult = async function(query) {
         const data = await (0, _helpersJs.getJSON)(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}`);
         console.log(data);
         console.log(state.search.results);
+        c;
         // reformatting the data property names
         state.search.results = data.data.recipes.map((rec)=>{
             return {
@@ -952,58 +953,24 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-class RecipeView {
-    #parentElement = document.querySelector(".recipe");
-    #data;
-    render(data) {
-        this.#data = data;
-        const markup = this.#generateMarkup();
-        // Emptying the recipe container
-        this.#clear;
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
-    #clear() {
-        this.#parentElement.innerHTML = " ";
-    }
-    renderSpinner() {
-        const markup = // the svg used here has been animated in the css file, causing the svg file to rotate. components.SCSS: Line 170 - 190
-        `
-      <div class="spinner">
-              <svg>
-                <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use> 
-              </svg>
-      </div>
-    `;
-        this.#parentElement.innerHTML = " ";
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
-    renderError(message) {
-        const markup = `
-    <div class="error">
-        <div>
-        <svg>
-            <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
-        </svg>
-        </div>
-        <p>${message}</p>
-    </div>
-`;
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
+// import View from './view.js'
+var _viewJs = require("../view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class RecipeView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".recipe");
     addHandlerRender(handler) {
         [
             "hashchange",
             "load"
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
-    #generateMarkup() {
+    _generateMarkup() {
         return `
             
     <figure class="recipe__fig">
-    <img src="${this.#data.image}" alt="${this.#data.title}" class="recipe__img" />
+    <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
     <h1 class="recipe__title">
-      <span>${this.#data.title}</span>
+      <span>${this._data.title}</span>
     </h1>
   </figure>
 
@@ -1012,14 +979,14 @@ class RecipeView {
       <svg class="recipe__info-icon">
         <use href="${0, _iconsSvgDefault.default}#icon-clock"></use>
       </svg>
-      <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookingTime}</span>
+      <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
       <span class="recipe__info-text">minutes</span>
     </div>
     <div class="recipe__info">
       <svg class="recipe__info-icon">
         <use href="${0, _iconsSvgDefault.default}#icon-users"></use>
       </svg>
-      <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
+      <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
       <span class="recipe__info-text">servings</span>
 
       <div class="recipe__info-buttons">
@@ -1053,7 +1020,7 @@ class RecipeView {
     <ul class="recipe__ingredient-list">
 
     
-    ${this.#data.ingredients // looping over the ingredients array to create new ingredients html element
+    ${this._data.ingredients // looping over the ingredients array to create new ingredients html element
         .map((ing)=>{
             return `
       <li class="recipe__ingredient">
@@ -1076,12 +1043,12 @@ class RecipeView {
     <h2 class="heading--2">How to cook it</h2>
     <p class="recipe__directions-text">
       This recipe was carefully designed and tested by
-      <span class="recipe__publisher">${this.#data.publisher}</span>. Please check out
+      <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
       directions at their website.
     </p>
     <a
       class="btn--small recipe__btn"
-      href="${this.#data.sourceUrl}"
+      href="${this._data.sourceUrl}"
       target="_blank"
     >
       <span>Directions</span>
@@ -1095,17 +1062,24 @@ class RecipeView {
 }
 exports.default = new RecipeView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp"}],"9OQAM":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp","../view.js":"ky8MP"}],"ky8MP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class View {
+}
+exports.default = View;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class searchView {
-    #parentElement = document.querySelector(".search");
+    _parentElement = document.querySelector(".search");
     getQuery() {
-        return this.#parentElement.querySelector(".search__field").value;
+        return this._parentElement.querySelector(".search__field").value;
     }
     addHandlerSearch(handler) {
         // Adding the event listener on the entire form
-        this.#parentElement.addEventListener("submit", function(e) {
+        this._parentElement.addEventListener("submit", function(e) {
             e.preventDefault();
             handler();
         });
