@@ -590,6 +590,8 @@ var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
 var _searchViewJs = require("./views/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
+var _resultViewJs = require("./resultView.js");
+var _resultViewJsDefault = parcelHelpers.interopDefault(_resultViewJs);
 // importing icons
 // import icons from '../img/icons.svg' works this way in parcel 1
 // importing icons in parcel 2
@@ -775,9 +777,11 @@ const timeout = function(s) {
 // controll search result
 const controlSearchResults = async function() {
     try {
+        (0, _resultViewJsDefault.default).renderSpinner();
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         await _modelJs.loadSearchResult(query);
+        (0, _resultViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
     }
@@ -794,7 +798,7 @@ init(); // controlRecipe();
  // window.addEventListener('hashchange', controlRecipe);
  // window.addEventListener('load', controlRecipe);
 
-},{"url:../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./model.js":"Y4A21","./views/recipeView.js":"l60JC","./views/searchView.js":"9OQAM"}],"loVOp":[function(require,module,exports) {
+},{"url:../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./model.js":"Y4A21","./views/recipeView.js":"l60JC","./views/searchView.js":"9OQAM","./resultView.js":"fBVOR"}],"loVOp":[function(require,module,exports) {
 module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
 
 },{"9bcc84ee5d265e38":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -908,7 +912,6 @@ const loadSearchResult = async function(query) {
         const data = await (0, _helpersJs.getJSON)(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}`);
         console.log(data);
         console.log(state.search.results);
-        c;
         // reformatting the data property names
         state.search.results = data.data.recipes.map((rec)=>{
             return {
@@ -1063,13 +1066,57 @@ class RecipeView extends (0, _viewJsDefault.default) {
 exports.default = new RecipeView();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp","../view.js":"ky8MP"}],"ky8MP":[function(require,module,exports) {
+// import icons from 'url:../../img/icons.svg';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class View {
+    _data;
+    render(data) {
+        this._data = data;
+        const markup = this._generateMarkup();
+        // Emptying the recipe container
+        this._clear;
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    _clear() {
+        this._parentElement.innerHTML = " ";
+    }
+    renderSpinner() {
+        const markup = // the svg used here has been animated in the css file, causing the svg file to rotate. components.SCSS: Line 170 - 190
+        `
+        <div class="spinner">
+                <svg>
+                  <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use> 
+                </svg>
+        </div>
+      `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    // error handling
+    renderError(message) {
+        const markup = `
+      <div class="error">
+          <div>
+          <svg>
+              <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+          </svg>
+          </div>
+          <p>${message}</p>
+      </div>
+  `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
 }
 exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9OQAM":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../img/icons.svg":"cMpiy"}],"cMpiy":[function(require,module,exports) {
+module.exports = require("17cff2908589362b").getBundleURL("hWUTQ") + "icons.21bad73c.svg" + "?" + Date.now();
+
+},{"17cff2908589362b":"lgJ39"}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class searchView {
@@ -1087,6 +1134,40 @@ class searchView {
 }
 exports.default = new searchView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fBVOR":[function(require,module,exports) {
+// import View from '../view.js';
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class ResultView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".results");
+    _generateMarkup() {
+        return this._data.map(this.__generateMarkupPreview).join("");
+    }
+    __generateMarkupPreview() {
+        return `
+    <li class="preview">
+        <a class="preview__link preview__link--active" href="#${result.id}">
+          <figure class="preview__fig">
+            <img src="${result.image}" alt="Test" />
+          </figure>
+          <div class="preview__data">
+            <h4 class="preview__title">${result.title}</h4>
+            <p class="preview__publisher">${result.publisher}</p>
+            <div class="preview__user-generated">
+              <svg>
+                <use href="${icons}#icon-user"></use>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </li>
+    `;
+    }
+}
+exports.default = new ResultView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view.js":"ky8MP"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map
