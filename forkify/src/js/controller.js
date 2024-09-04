@@ -1,6 +1,7 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
+import resultView from './resultView.js';
 
 // importing icons
 // import icons from '../img/icons.svg' works this way in parcel 1
@@ -203,9 +204,11 @@ const controlRecipe = async function () {
 // controll search result
 const controlSearchResults = async function () {
   try {
+    resultView.renderSpinner();
     const query = searchView.getQuery();
     if (!query) return;
     await model.loadSearchResult(query);
+    resultView.render(model.state.search.results)
   } catch (err) {
     console.log(err);
   }

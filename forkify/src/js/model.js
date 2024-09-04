@@ -45,7 +45,7 @@ export const loadSearchResult = async function (query) {
       `https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}`
     );
     console.log(data);
-    console.log(state.search.results);c
+    console.log(state.search.results);
 
     // reformatting the data property names
     state.search.results = data.data.recipes.map(rec => {
