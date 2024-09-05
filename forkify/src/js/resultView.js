@@ -1,17 +1,18 @@
 // import View from '../view.js';
 import View from './view.js';
+import icons from '../img/icons.svg'
+
 
 class ResultView extends View {
   _parentElement = document.querySelector('.results');
+  _errorMessage = 'No recipe found for your query. Please try again!';
+  _message = '';
 
   _generateMarkup() {
-
-return this._data.map(this.__generateMarkupPreview).join('')
-
-   ;
+    return this._data.map(this.__generateMarkupPreview.bind(this)).join('');
   }
 
-  __generateMarkupPreview() {
+  __generateMarkupPreview(result) {
     return `
     <li class="preview">
         <a class="preview__link preview__link--active" href="#${result.id}">
@@ -29,7 +30,7 @@ return this._data.map(this.__generateMarkupPreview).join('')
           </div>
         </a>
       </li>
-    `
+    `;
   }
 }
 

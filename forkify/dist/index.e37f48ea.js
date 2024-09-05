@@ -961,6 +961,8 @@ var _viewJs = require("../view.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 class RecipeView extends (0, _viewJsDefault.default) {
     _parentElement = document.querySelector(".recipe");
+    _errorMessage = "We could not find that recipe. Please try another one!";
+    _message = "";
     addHandlerRender(handler) {
         [
             "hashchange",
@@ -1074,10 +1076,11 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class View {
     _data;
     render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError("Recipe not found!");
         this._data = data;
         const markup = this._generateMarkup();
         // Emptying the recipe container
-        this._clear;
+        this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     _clear() {
@@ -1140,12 +1143,16 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./view.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _iconsSvg = require("../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class ResultView extends (0, _viewJsDefault.default) {
     _parentElement = document.querySelector(".results");
+    _errorMessage = "No recipe found for your query. Please try again!";
+    _message = "";
     _generateMarkup() {
-        return this._data.map(this.__generateMarkupPreview).join("");
+        return this._data.map(this.__generateMarkupPreview.bind(this)).join("");
     }
-    __generateMarkupPreview() {
+    __generateMarkupPreview(result) {
         return `
     <li class="preview">
         <a class="preview__link preview__link--active" href="#${result.id}">
@@ -1157,7 +1164,7 @@ class ResultView extends (0, _viewJsDefault.default) {
             <p class="preview__publisher">${result.publisher}</p>
             <div class="preview__user-generated">
               <svg>
-                <use href="${icons}#icon-user"></use>
+                <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
               </svg>
             </div>
           </div>
@@ -1168,6 +1175,6 @@ class ResultView extends (0, _viewJsDefault.default) {
 }
 exports.default = new ResultView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view.js":"ky8MP"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view.js":"ky8MP","../img/icons.svg":"cMpiy"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map
