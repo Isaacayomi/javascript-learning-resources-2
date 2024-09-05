@@ -778,10 +778,16 @@ const timeout = function(s) {
 const controlSearchResults = async function() {
     try {
         (0, _resultViewJsDefault.default).renderSpinner();
+        // Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
+        //load search results
         await _modelJs.loadSearchResult(query);
-        (0, _resultViewJsDefault.default).render(_modelJs.state.search.results);
+        //render results
+        // resultView.render(model.state.search.results)
+        // calling pagination functionality
+        // resultView.render(model.getSearchResultPage(1))
+        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultPage());
     } catch (err) {
         console.log(err);
     }
@@ -872,6 +878,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResult", ()=>loadSearchResult);
+parcelHelpers.export(exports, "getSearchResultPage", ()=>getSearchResultPage);
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
 var _recipeViewJs = require("./views/recipeView.js");
@@ -880,7 +887,9 @@ const state = {
     recipe: {},
     search: {
         query: "",
-        results: []
+        results: [],
+        page: 1,
+        resultsPerPage: 10
     }
 };
 const loadRecipe = async function(id) {
@@ -926,6 +935,13 @@ const loadSearchResult = async function(query) {
         console.log(err);
         throw err;
     }
+};
+const getSearchResultPage = function(page = state.search.page) {
+    state.search.page = page;
+    const start = (page - 1) * state.search.resultsPerPage; //0;
+    const end = page * state.search.resultsPerPage; //9;
+    // return part of the results from 1 to 10
+    return state.search.results.slice(start, end);
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config.js":"k5Hzs","./helpers.js":"hGI1E","./views/recipeView.js":"l60JC"}],"k5Hzs":[function(require,module,exports) {
