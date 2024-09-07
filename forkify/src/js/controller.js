@@ -2,6 +2,7 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultView from './resultView.js';
+import paginationView from './views/paginationView.js';
 
 // importing icons
 // import icons from '../img/icons.svg' works this way in parcel 1
@@ -214,7 +215,10 @@ const controlSearchResults = async function () {
     // resultView.render(model.state.search.results)
     // calling pagination functionality
     // resultView.render(model.getSearchResultPage(1))
-    resultView.render(model.getSearchResultPage())
+    resultView.render(model.getSearchResultPage(1));
+
+    // Render initial pagination buttons
+    paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
