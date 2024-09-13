@@ -11,7 +11,7 @@ class RecipeView extends View {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
-  addHandlerUpdateServing(handler) {
+  addHandlerUpdateServings(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('btn--tiny');
       if (!btn) return;
