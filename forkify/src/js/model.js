@@ -59,6 +59,7 @@ export const loadSearchResult = async function (query) {
       };
     });
     console.log(state.search.results);
+    state.search.page = 1;
   } catch (err) {
     console.log(err);
     throw err;
@@ -81,4 +82,3 @@ export const updateServings = function (newServings) {
   });
   state.recipe.servings = newServings;
 };
- 
