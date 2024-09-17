@@ -3,6 +3,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultView from './resultView.js';
 import paginationView from './views/paginationView.js';
+import bookmarkView from './views/bookmarkView.js';
 
 // importing icons
 // import icons from '../img/icons.svg' works this way in parcel 1
@@ -246,10 +247,16 @@ const controlServings = function (newServings) {
 
 // Controlling Add bookmark
 const controlAddBookmark = function () {
+  // Add or Remove Bookmark
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else model.deleteBookmark(model.state.recipe.id);
   console.log(model.state.recipe);
+
+  // Update recipe view
   recipeView.update(model.state.recipe);
+
+  // Render the bookmarks
+  bookmarkView.render(model.state.bookmarks);
 };
 
 const init = function () {
